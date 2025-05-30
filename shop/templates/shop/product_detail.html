@@ -1,0 +1,126 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <!-- Colonne Image -->
+        <div class="col-md-6">
+            <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+            <div class="thumbnail-container mt-3">
+                <!-- Miniatures supplémentaires -->
+                <img src="{{ product.image.url }}" class="thumbnail" width="80">
+                <!-- Ajoutez d'autres miniatures si nécessaire -->
+            </div>
+        </div>
+        
+        <!-- Colonne Détails -->
+        <div class="col-md-6">
+            <h2>{{ product.name }}</h2>
+            <div class="brand">{{ product.brand }}</div>
+            
+            <div class="rating my-3">
+                <i class="fas fa-star text-warning"></i>
+                <span>4.5 (128 avis)</span>
+            </div>
+            
+            <div class="price-container my-3">
+                {% if product.discount_price %}
+                    <span class="current-price">{{ product.discount_price }} €</span>
+                    <span class="old-price">{{ product.price }} €</span>
+                    <span class="discount-badge">-{{ product.get_discount_percent }}%</span>
+                {% else %}
+                    <span class="current-price">{{ product.price }} €</span>
+                {% endif %}
+            </div>
+            
+            <!-- Sélection de taille -->
+            <div class="size-selection my-4">
+                <h5>Tailles disponibles :</h5>
+                <div class="size-options">
+                    {% for size in product.available_sizes.all %}
+                        <button class="btn btn-outline-secondary size-btn">{{ size.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Boutons d'action -->
+            <div class="action-buttons">
+                <button class="btn btn-primary btn-lg">
+                    <i class="fas fa-cart-plus"></i> Ajouter au panier
+                </button>
+                <button class="btn btn-outline-secondary btn-lg">
+                    <i class="far fa-heart"></i> Favoris
+                </button>
+            </div>
+            
+            <!-- Description et détails -->
+            <div class="product-details mt-5">
+                <h4>Description</h4>
+                <p>{{ product.description }}</p>
+                
+                <h4 class="mt-4">Caractéristiques</h4>
+                <ul>
+                    <li>Matériau : {{ product.material }}</li>
+                    <li>Couleur : {{ product.color }}</li>
+                    <li>Poids : {{ product.weight }}g</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* product_detail.css */
+.current-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #d32f2f;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #757575;
+    margin-left: 10px;
+}
+
+.discount-badge {
+    background: #d32f2f;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.size-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.size-btn {
+    width: 50px;
+}
+
+.thumbnail-container {
+    display: flex;
+    gap: 10px;
+}
+
+.thumbnail {
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.thumbnail:hover {
+    border-color: #0056b3;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+</style>
+{% endblock %}

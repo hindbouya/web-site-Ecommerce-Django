@@ -1,0 +1,1002 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Accueil - MonShop Sport{% endblock %}
+
+{% block content %}
+<div class="decathlon-container">
+    <!-- Bannière Hero -->
+    <div class="ecommerce-hero-slider">
+    <!-- Slide 1 - Promotion -->
+    <div class="hero-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{% static 'images/slider/image2.jpg' %}');">
+        <div class="container">
+            <div class="slide-content">
+                <span class="slide-badge">LIMITÉ</span>
+                <span class="slide-category">PROMOTION EXCEPTIONNELLE</span>
+                <h2 class="slide-title">Jusqu'à -50% sur une sélection</h2>
+                <p class="slide-description">Profitez de nos meilleures offres sur une large gamme de produits</p>
+                <div class="slide-cta">
+                    <a href="#" class="btn btn-primary">Voir les promotions</a>
+                    <span class="offer-timer"><i class="fas fa-clock"></i> Offre valable 48h</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 2 - Nouveautés -->
+    <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{% static 'images/slider/image1.jpg' %}');">
+        <div class="container">
+            <div class="slide-content right-align">
+                <span class="slide-badge">NOUVEAU</span>
+                <span class="slide-category">COLLECTION 2023</span>
+                <h2 class="slide-title">Découvrez nos dernières arrivages</h2>
+                <p class="slide-description">Des produits innovants pour toutes vos activités</p>
+                <div class="slide-cta">
+                    <a href="#" class="btn btn-outline-light">Explorer la collection</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Slide 3 - Générique -->
+    <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{% static 'images/slider/image3.jpg' %}');">
+        <div class="container">
+            <div class="slide-content center-align">
+                <span class="slide-category">BESOIN D'INSPIRATION ?</span>
+                <h2 class="slide-title">Trouvez l'équipement parfait</h2>
+                <p class="slide-description">Notre sélection expert pour tous vos besoins</p>
+                <div class="slide-cta">
+                    <a href="#" class="btn btn-white">Commencer le shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contrôles du slider -->
+    <div class="slider-controls">
+        <button class="control-prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+        <button class="control-next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</div>
+
+<style>
+    .ecommerce-hero-slider {
+        position: relative;
+        height: 600px;
+        overflow: hidden;
+    }
+    
+    .hero-slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1s ease;
+        display: flex;
+        align-items: center;
+    }
+    
+    .hero-slide.active {
+        opacity: 1;
+    }
+    
+    .slide-content {
+        max-width: 600px;
+        color: white;
+        padding: 2rem;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 10px;
+        animation: fadeInUp 0.8s ease;
+    }
+    
+    .right-align {
+        margin-left: auto;
+        text-align: right;
+    }
+    
+    .center-align {
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .slide-badge {
+        display: inline-block;
+        background: #ff4757;
+        color: white;
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+    
+    .slide-category {
+        display: block;
+        font-size: 1rem;
+        color: #f8f9fa;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .slide-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+    
+    .slide-description {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+    }
+    
+    .slide-cta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .btn {
+        padding: 0.8rem 2rem;
+        border-radius: 30px;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+        background: #007bff;
+        border: none;
+    }
+    
+    .btn-primary:hover {
+        background: #0069d9;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .btn-outline-light {
+        border: 2px solid white;
+        background: transparent;
+    }
+    
+    .btn-outline-light:hover {
+        background: white;
+        color: #343a40;
+    }
+    
+    .btn-white {
+        background: white;
+        color: #343a40;
+    }
+    
+    .btn-white:hover {
+        background: #f8f9fa;
+        transform: translateY(-3px);
+    }
+    
+    .offer-timer {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+    
+    .slider-controls {
+        position: absolute;
+        bottom: 2rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .control-prev, .control-next {
+        background: rgba(255,255,255,0.3);
+        border: none;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .control-prev:hover, .control-next:hover {
+        background: rgba(255,255,255,0.5);
+    }
+    
+    .slider-dots {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.5);
+        cursor: pointer;
+    }
+    
+    .dot.active {
+        background: white;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .ecommerce-hero-slider {
+            height: 500px;
+        }
+        
+        .slide-content {
+            max-width: 90%;
+            padding: 1.5rem;
+        }
+        
+        .slide-title {
+            font-size: 2rem;
+        }
+        
+        .slide-description {
+            font-size: 1rem;
+        }
+    }
+</style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentIndex = 0;
+            
+            function showNextSlide() {
+                // Masque le slide actuel
+                slides[currentIndex].classList.remove('active');
+                
+                // Passe au slide suivant
+                currentIndex = (currentIndex + 1) % slides.length;
+                
+                // Affiche le nouveau slide
+                slides[currentIndex].classList.add('active');
+            }
+            
+            // Change de slide toutes les 5 secondes
+            setInterval(showNextSlide, 4000);
+            
+            // Optionnel : Pause au survol
+            const slider = document.querySelector('.decathlon-hero-slider');
+            let interval;
+            
+            function startSlider() {
+                interval = setInterval(showNextSlide, 4000);
+            }
+            
+            slider.addEventListener('mouseenter', () => clearInterval(interval));
+            slider.addEventListener('mouseleave', startSlider);
+            
+            startSlider();
+        });
+    </script>
+
+
+   <div class="container py-4">
+    <h2 class="decathlon-title">NOS CHAUSSURES DE SPORT</h2>
+    
+    <!-- Slider Decathlon Style -->
+    <div class="decathlon-slider-container">
+        <div class="decathlon-slider">
+            {% for produit in chaussures %}
+            <div class="decathlon-product">
+                <div class="decathlon-card">
+                    <!-- Badge Promo -->
+                    {% if produit.promotion %}
+                    <div class="decathlon-promo-flag">-{{ produit.promotion }}%</div>
+                    {% endif %}
+                    
+                    <!-- Image Produit -->
+                    <div class="decathlon-img-container">
+                        <img src="{% static produit.image %}" class="decathlon-product-img" alt="{{ produit.nom }}">
+                    </div>
+                    
+                    <!-- Détails Produit -->
+                    <div class="decathlon-product-info">
+                        <div class="decathlon-product-brand">{{ produit.marque }}</div>
+                        <h3 class="decathlon-product-name">{{ produit.nom }}</h3>
+                        
+                        <!-- Tailles -->
+                        <div class="decathlon-sizes">
+                            <span class="decathlon-size-label">Tailles :</span>
+                            <div class="decathlon-size-buttons">
+                                {% for taille in produit.tailles %}
+                                <button class="decathlon-size-btn">{{ taille }}</button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Prix -->
+                        <div class="decathlon-price-container">
+                            <span class="decathlon-current-price">{{ produit.prix }} €</span>
+                            {% if produit.prix_original %}
+                            <span class="decathlon-old-price">{{ produit.prix_original }} €</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Avis -->
+                        <div class="decathlon-rating">
+                            <div class="decathlon-stars">
+                                ★★★★☆
+                            </div>
+                            <span class="decathlon-review-count">(42)</span>
+                        </div>
+                        
+                        <!-- Boutons -->
+                        <div class="decathlon-actions">
+                            <a href="{% url 'detail_produit' produit.id %}" class="decathlon-detail-btn">
+                                Voir détails
+                            </a>
+                            <form method="post" action="{% url 'ajouter_au_panier' produit.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="decathlon-cart-btn">
+                                    AJOUTER AU PANIER
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    
+    <style> 
+
+        /* Bouton Détail */
+        .decathlon-detail-btn {
+        display: block;
+        width: 100%;
+        padding: 8px;
+        background: white;
+        color: #0066CC;
+        border: 1px solid #0066CC;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        text-align: center;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-bottom: 8px;
+        text-decoration: none;
+            }
+
+            .decathlon-detail-btn:hover {
+                background: #0066CC;
+                color: white;
+            }
+
+            /* Espacement entre les boutons */
+            .decathlon-actions {
+                margin-top: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+        /* Style général Decathlon */
+        .decathlon-title {
+            font-family: 'DecathlonBold', Arial, sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            color: #2C3E50;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Conteneur du slider */
+        .decathlon-slider-container {
+            position: relative;
+        }
+        
+        .decathlon-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 10px 5px 25px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .decathlon-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Carte produit */
+        .decathlon-product {
+            scroll-snap-align: start;
+            flex: 0 0 240px;
+        }
+        
+        .decathlon-card {
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #E0E0E0;
+            transition: transform 0.2s;
+        }
+        
+        .decathlon-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        /* Image */
+        .decathlon-img-container {
+            padding: 15px;
+            background: #F7F7F7;
+            text-align: center;
+            position: relative;
+        }
+        
+        .decathlon-product-img {
+            max-width: 100%;
+            height: 140px;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }
+        
+        /* Badge promo */
+        .decathlon-promo-flag {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background: #E73C3E;
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        /* Infos produit */
+        .decathlon-product-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .decathlon-product-brand {
+            font-size: 0.75rem;
+            color: #7F8C8D;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .decathlon-product-name {
+            font-size: 0.95rem;
+            color: #2C3E50;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        
+        /* Tailles */
+        .decathlon-sizes {
+            margin-bottom: 15px;
+        }
+        
+        .decathlon-size-label {
+            font-size: 0.75rem;
+            color: #7F8C8D;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .decathlon-size-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .decathlon-size-btn {
+            min-width: 30px;
+            padding: 3px 5px;
+            font-size: 0.7rem;
+            background: white;
+            border: 1px solid #DDD;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .decathlon-size-btn:hover {
+            border-color: #0066CC;
+        }
+        
+        /* Prix */
+        .decathlon-price-container {
+            margin-top: auto;
+            margin-bottom: 10px;
+        }
+        
+        .decathlon-current-price {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #E73C3E;
+        }
+        
+        .decathlon-old-price {
+            text-decoration: line-through;
+            color: #95A5A6;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        /* Avis */
+        .decathlon-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .decathlon-stars {
+            color: #FFB800;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .decathlon-review-count {
+            font-size: 0.7rem;
+            color: #7F8C8D;
+            margin-left: 5px;
+        }
+        
+        /* Boutons */
+        .decathlon-actions {
+            margin-top: auto;
+        }
+        
+        .decathlon-cart-btn {
+            width: 100%;
+            padding: 8px;
+            background: #0066CC;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .decathlon-cart-btn:hover {
+            background: #0052A3;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .decathlon-product {
+                flex: 0 0 200px;
+            }
+            
+            .decathlon-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    
+
+
+   
+
+  
+<div class="container py-4">
+    <h2 class="decathlon-title">MATÉRIEL DE FITNESS & MUSCULATION</h2>
+    
+    <!-- Slider Fitness avec le même style que chaussures -->
+    <div class="decathlon-slider-container">
+        <div class="decathlon-slider">
+            {% for equipement in equipements_fitness %}
+            <div class="decathlon-product">
+                <div class="decathlon-card">
+                    <!-- Image Produit -->
+                    <div class="decathlon-img-container">
+                        <img src="{% static equipement.image %}" class="decathlon-product-img" alt="{{ equipement.nom }}">
+                    </div>
+                    
+                    <!-- Détails Produit -->
+                    <div class="decathlon-product-info">
+                        <div class="decathlon-product-brand">DOMYOS</div>
+                        <h3 class="decathlon-product-name">{{ equipement.nom }}</h3>
+                        
+                        <!-- Description -->
+                        <div class="decathlon-sizes">
+                            <span class="decathlon-size-label">Caractéristiques :</span>
+                            <div class="decathlon-product-description">
+                                {{ equipement.description|truncatechars:60 }}
+                            </div>
+                        </div>
+                        
+                        <!-- Prix -->
+                        <div class="decathlon-price-container">
+                            <span class="decathlon-current-price">{{ equipement.prix }} €</span>
+                        </div>
+                        
+                        <!-- Étoiles de notation (identique à la section chaussures) -->
+                        <div class="decathlon-rating">
+                            <div class="decathlon-stars">
+                                ★★★★☆
+                            </div>
+                            <span class="decathlon-review-count">(42)</span>
+                        </div>
+                        
+                        <!-- Boutons (strictement identiques) -->
+                        <div class="decathlon-actions">
+                            <a href="{% url 'detail_produit' equipement.id %}" class="decathlon-detail-btn">
+                                Voir détails
+                            </a>
+                            <form method="post" action="{% url 'ajouter_au_panier' equipement.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="decathlon-cart-btn">
+                                    AJOUTER AU PANIER
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Aucun produit disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Style des étoiles (identique à la section chaussures) */
+    .decathlon-stars {
+        color: #FFB800;  /* Jaune Decathlon */
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+    
+    .decathlon-review-count {
+        font-size: 0.7rem;
+        color: #7F8C8D;
+        margin-left: 5px;
+    }
+    
+    /* Adaptation de la description */
+    .decathlon-product-description {
+        font-size: 0.8rem;
+        color: #7F8C8D;
+        line-height: 1.4;
+        margin-top: 5px;
+    }
+</style>
+    
+
+
+
+ <div class="container py-4">
+    <h2 class="decathlon-title">VÊTEMENTS SPORTIF</h2>
+    
+    <!-- Slider Vêtements Sportif -->
+    <div class="decathlon-slider-container">
+        <div class="decathlon-slider">
+            {% for vetement in vetements_sportif %}
+            <div class="decathlon-product">
+                <div class="decathlon-card">
+                    <!-- Image Produit -->
+                    <div class="decathlon-img-container">
+                        <img src="{% static vetement.image %}" class="decathlon-product-img" alt="{{ vetement.nom }}">
+                    </div>
+                    
+                    <!-- Détails Produit -->
+                    <div class="decathlon-product-info">
+                        <div class="decathlon-product-brand">DOMYOS</div>
+                        <h3 class="decathlon-product-name">{{ vetement.nom }}</h3>
+                        
+                        <!-- Tailles (identique structure) -->
+                        <div class="decathlon-sizes">
+                            <span class="decathlon-size-label">Tailles :</span>
+                            <div class="decathlon-size-buttons">
+                                {% for taille in vetement.tailles %}
+                                <button class="decathlon-size-btn">{{ taille }}</button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- Prix -->
+                        <div class="decathlon-price-container">
+                            <span class="decathlon-current-price">{{ vetement.prix }} €</span>
+                            {% if vetement.prix_original %}
+                            <span class="decathlon-old-price">{{ vetement.prix_original }} €</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Étoiles jaunes (identique chaussures) -->
+                        <div class="decathlon-rating">
+                            <div class="decathlon-stars">
+                                ★★★★☆
+                            </div>
+                            <span class="decathlon-review-count">(42)</span>
+                        </div>
+                        
+                        <!-- Boutons (strictement identiques) -->
+                        <div class="decathlon-actions">
+                            <a href="{% url 'detail_produit' vetement.id %}" class="decathlon-detail-btn">
+                                Voir détails
+                            </a>
+                            <form method="post" action="{% url 'ajouter_au_panier' vetement.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="decathlon-cart-btn">
+                                    AJOUTER AU PANIER
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Aucun vêtement sportif disponible.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+    
+    <style>
+        /* Override spécifique Fitness */
+        .fitness-slider {
+            padding-bottom: 30px;
+        }
+        
+        .fitness-product {
+            flex: 0 0 280px; /* Un peu plus large pour les équipements */
+        }
+        
+        .fitness-card {
+            border-radius: 6px;
+        }
+        
+        .fitness-img-container {
+            background: #F0F2F5;
+            padding: 20px 15px;
+            min-height: 180px;
+        }
+        
+        .decathlon-top-flag {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            background: #FFB800;
+            color: #2C3E50;
+            padding: 3px 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 2;
+            clip-path: polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%);
+        }
+        
+        .fitness-features {
+            margin: 12px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .fitness-feature {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #2C3E50;
+        }
+        
+        .fitness-feature i {
+            margin-right: 5px;
+            color: #0066CC;
+            font-size: 0.9rem;
+        }
+        
+        .fitness-delivery {
+            font-size: 0.8rem;
+            color: #27AE60;
+            margin: 8px 0 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .fitness-delivery i {
+            margin-right: 5px;
+        }
+        
+        .fitness-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .fitness-cart-btn {
+            background: #2C3E50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .fitness-cart-btn:hover {
+            background: #1A2631;
+        }
+        
+        .decathlon-details-btn {
+            width: 100%;
+            padding: 8px;
+            background: white;
+            color: #2C3E50;
+            border: 1px solid #DDD;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .decathlon-details-btn:hover {
+            border-color: #0066CC;
+            color: #0066CC;
+        }
+        
+        /* Responsive Fitness */
+        @media (max-width: 768px) {
+            .fitness-product {
+                flex: 0 0 85%;
+            }
+            
+            .fitness-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+
+
+
+
+
+    <!-- Section Sports -->
+   <div class="sports-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold display-5" style="color: #2c3e50;">Explorez nos univers sportifs</h2>
+        <div class="row g-4">
+            <!-- Carte Cyclisme -->
+            <div class="col-lg-3 col-md-6">
+                <a href="#" class="sport-card text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm hover-effect">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-3 mx-auto rounded-circle" style="background-color: rgba(46, 204, 113, 0.1);">
+                                <i class="fas fa-biking fa-2x" style="color: #2ecc71;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #2c3e50;">Cyclisme</h5>
+                            <p class="text-muted small">Vélos, équipements et accessoires</p>
+                            <span class="badge bg-success bg-opacity-10 text-success">Nouveautés</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Carte Running -->
+            <div class="col-lg-3 col-md-6">
+                <a href="#" class="sport-card text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm hover-effect">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-3 mx-auto rounded-circle" style="background-color: rgba(52, 152, 219, 0.1);">
+                                <i class="fas fa-running fa-2x" style="color: #3498db;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #2c3e50;">Running</h5>
+                            <p class="text-muted small">Chaussures et tenues techniques</p>
+                            <span class="badge bg-primary bg-opacity-10 text-primary">Populaire</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Carte Natation -->
+            <div class="col-lg-3 col-md-6">
+                <a href="#" class="sport-card text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm hover-effect">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-3 mx-auto rounded-circle" style="background-color: rgba(155, 89, 182, 0.1);">
+                                <i class="fas fa-swimmer fa-2x" style="color: #9b59b6;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #2c3e50;">Natation</h5>
+                            <p class="text-muted small">Maillots, lunettes et accessoires</p>
+                            <span class="badge bg-purple bg-opacity-10 text-purple">Été 2025</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Carte Fitness -->
+            <div class="col-lg-3 col-md-6">
+                <a href="#" class="sport-card text-decoration-none">
+                    <div class="card h-100 border-0 shadow-sm hover-effect">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-wrapper mb-3 mx-auto rounded-circle" style="background-color: rgba(231, 76, 60, 0.1);">
+                                <i class="fas fa-dumbbell fa-2x" style="color: #e74c3c;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #2c3e50;">Fitness</h5>
+                            <p class="text-muted small">Matériel et vêtements d'entraînement</p>
+                            <span class="badge bg-danger bg-opacity-10 text-danger">-30%</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bouton "Voir plus" centré -->
+        <div class="text-center mt-5">
+            <a href="#" class="btn btn-outline-primary px-4 py-2 rounded-pill">
+                <i class="fas fa-plus me-2"></i>Découvrir tous les sports
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-effect {
+        transition: all 0.3s ease;
+    }
+    .hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+    .icon-wrapper {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .bg-purple {
+        background-color: #9b59b6;
+    }
+    .text-purple {
+        color: #9b59b6;
+    }
+</style>
+</div>
+{% endblock %}

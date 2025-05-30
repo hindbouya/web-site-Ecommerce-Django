@@ -1,0 +1,82 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <!-- Logo / Nom du site -->
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-store me-2"></i>MonShop
+            </a>
+            
+            <!-- Bouton mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu principal -->
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        {% comment %} <a class="nav-link" href="{% url 'produit-list' %}">Produits</a> {% endcomment %}
+                    </li>
+                </ul>
+
+                <!-- Partie droite du header -->
+                <div class="d-flex align-items-center">
+                    <!-- Barre de recherche (optionnelle) -->
+                    {% comment %} <form class="d-flex me-3" action="{% url 'search' %}" method="GET">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Rechercher...">
+                        <button class="btn btn-outline-light" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form> {% endcomment %}
+
+                  <!-- Panier -->
+                  {% comment %} <a href="{% url 'panier' %}" class="btn btn-outline-light position-relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        {{ request.session.panier|length|default:0 }}
+                    </span>
+                </a> {% endcomment %}
+                
+                
+
+
+                    <!-- Menu utilisateur -->
+                    <div class="dropdown">
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-1"></i> {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% comment %} <li><a class="dropdown-item" href="{% url 'profile' %}">Mon compte</a></li>
+                                <li><a class="dropdown-item" href="{% url 'order-history' %}">Mes commandes</a></li> {% endcomment %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item" style="background: none; border: none; width: 100%; text-align: left;">
+                                            <i class="fas fa-sign-out-alt me-1"></i> Déconnexion
+                                        </button>
+                                    </form>
+                                </li>
+                                
+                                
+                            </ul>
+                        {% else %}
+                            <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="loginDropdown" data-bs-toggle="dropdown">
+                                <i class="fas fa-user"></i> Connexion
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'login' %}">Se connecter</a></li>
+                                <li><a class="dropdown-item" href="{% url 'register' %}">S'inscrire</a></li>
+
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

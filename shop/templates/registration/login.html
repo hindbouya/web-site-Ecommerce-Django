@@ -1,0 +1,165 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2 class="auth-title">Connexion</h2>
+    
+    {% if form.errors %}
+    <div class="auth-alert">
+        <i class="fas fa-exclamation-circle"></i> Identifiants incorrects. Veuillez réessayer.
+    </div>
+    {% endif %}
+    
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_username" class="form-label">Nom d'utilisateur</label>
+            <input type="text" class="form-input" name="username" required id="id_username" placeholder="Entrez votre nom d'utilisateur" autofocus>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_password" class="form-label">Mot de passe</label>
+            <input type="password" class="form-input" name="password" required id="id_password" placeholder="Entrez votre mot de passe">
+            <div class="text-right">
+                <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+            </div>
+        </div>
+        
+        <button type="submit" class="auth-button">Se connecter</button>
+        
+        <div class="auth-footer">
+            <p>Pas encore de compte ? <a href="{% url 'inscription' %}" class="auth-link">Inscrivez-vous</a></p>
+        </div>
+    </form>
+</div>
+
+<style>
+    /* Styles cohérents avec register.html */
+    .auth-container {
+        max-width: 450px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .auth-title {
+        color: #2C3E50;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+    
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #2C3E50;
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #E0E0E0;
+        border-radius: 4px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+    }
+    
+    .form-input:focus {
+        border-color: #0066CC;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+    }
+    
+    .auth-button {
+        background: #0066CC;
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 0.5rem;
+    }
+    
+    .auth-button:hover {
+        background: #0052A3;
+    }
+    
+    .auth-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #7F8C8D;
+        font-size: 0.95rem;
+    }
+    
+    .auth-link {
+        color: #0066CC;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .auth-link:hover {
+        text-decoration: underline;
+    }
+    
+    /* Styles spécifiques à login */
+    .auth-alert {
+        background: #FFEBEE;
+        color: #E73C3E;
+        padding: 0.75rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .forgot-password {
+        color: #0066CC;
+        font-size: 0.85rem;
+        text-decoration: none;
+    }
+    
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+    
+    .text-right {
+        text-align: right;
+        margin-top: 0.5rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 576px) {
+        .auth-container {
+            margin: 1rem;
+            padding: 1.5rem;
+        }
+        
+        .auth-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,267 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="decathlon-detail-container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="#">Chaussures</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ produit.nom }}</li>
+            </ol>
+        </nav>
+        
+        <div class="row">
+            <!-- Gallery -->
+            <div class="col-md-6">
+                <div class="decathlon-detail-gallery">
+                    <div class="decathlon-detail-main-img">
+                        <img src="{% static produit.image %}" alt="{{ produit.nom }}" class="img-fluid">
+                    </div>
+                    <div class="decathlon-detail-thumbnails">
+                        <!-- Vous pouvez ajouter des miniatures ici si vous avez plusieurs images -->
+                        <img src="{% static produit.image %}" alt="Miniature 1" class="decathlon-detail-thumb">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Info -->
+            <div class="col-md-6">
+                <div class="decathlon-detail-info">
+                    <!-- Marque et Nom -->
+                    <div class="decathlon-product-brand">{{ produit.marque }}</div>
+                    <h1 class="decathlon-detail-name">{{ produit.nom }}</h1>
+                    
+                    <!-- Avis -->
+                    <div class="decathlon-rating mb-3">
+                        <div class="decathlon-stars">
+                            ★★★★☆
+                        </div>
+                        <span class="decathlon-review-count">(42 avis)</span>
+                        <a href="#reviews" class="decathlon-review-link">Voir les avis</a>
+                    </div>
+                    
+                    <!-- Prix -->
+                    <div class="decathlon-price-container mb-4">
+                        <span class="decathlon-current-price">{{ produit.prix }} €</span>
+                        {% comment %} {% if produit.prix_original %}
+                        <span class="decathlon-old-price">{{ produit.prix_original }} €</span>
+                        <span class="decathlon-promo-badge">-{{ produit.promotion }}%</span>
+                        {% endif %} {% endcomment %}
+                    </div>
+                    
+                    <!-- Description -->
+                    <div class="decathlon-detail-description mb-4">
+                        <h3 class="decathlon-detail-section-title">Description</h3>
+                        <p>{{ produit.description_longue|default:produit.description }}</p>
+                    </div>
+                    
+                    <!-- Tailles -->
+                   <div class="decathlon-detail-sizes mb-4">
+    <h3 class="decathlon-detail-section-title">Tailles disponibles</h3>
+    <div class="decathlon-size-buttons">
+        {% for taille in tailles %}
+        <button class="decathlon-size-btn" data-value="{{ taille }}">
+            {{ taille }}
+        </button>
+        {% endfor %}
+    </div>
+</div>
+                    
+                    <!-- Couleurs -->
+                    {% if produit.couleurs %}
+                    <div class="decathlon-detail-colors mb-4">
+                        <h3 class="decathlon-detail-section-title">Couleurs</h3>
+                        <div class="decathlon-color-options">
+                            {% for couleur in produit.couleurs %}
+                            <button class="decathlon-color-btn" style="background-color: {{ couleur.code }};" title="{{ couleur.nom }}"></button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Actions -->
+                    <div class="decathlon-detail-actions">
+                        <form method="post" action="{% url 'ajouter_au_panier' produit.id %}" class="w-100">
+                            {% csrf_token %}
+                            <button type="submit" class="decathlon-cart-btn decathlon-cart-btn-lg">
+                                AJOUTER AU PANIER - {{ produit.prix }} €
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Livraison -->
+                    <div class="decathlon-delivery-info mt-3">
+                        <div class="decathlon-delivery-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Livraison gratuite dès 50€</span>
+                        </div>
+                        <div class="decathlon-delivery-item">
+                            <i class="fas fa-store"></i>
+                            <span>Retrait gratuit en magasin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Caractéristiques -->
+        <div class="decathlon-detail-features mt-5">
+            <h3 class="decathlon-detail-section-title">Caractéristiques</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="decathlon-feature-list">
+                        <li><strong>Type:</strong> {{ produit.type }}</li>
+                        <li><strong>Matériau:</strong> {{ produit.materiau }}</li>
+                        <li><strong>Poids:</strong> {{ produit.poids }}g</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="decathlon-feature-list">
+                        <li><strong>Genre:</strong> {{ produit.genre }}</li>
+                        <li><strong>Sport:</strong> {{ produit.sport }}</li>
+                        <li><strong>Garantie:</strong> {{ produit.garantie }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styles pour la page de détail */
+    .decathlon-detail-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .decathlon-detail-gallery {
+        margin-bottom: 30px;
+    }
+    
+    .decathlon-detail-main-img {
+        background: #F7F7F7;
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 15px;
+        border-radius: 4px;
+    }
+    
+    .decathlon-detail-main-img img {
+        max-height: 400px;
+        object-fit: contain;
+    }
+    
+    .decathlon-detail-thumbnails {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .decathlon-detail-thumb {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .decathlon-detail-thumb:hover {
+        border-color: #0066CC;
+    }
+    
+    .decathlon-detail-name {
+        font-size: 1.8rem;
+        color: #2C3E50;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+    
+    .decathlon-detail-section-title {
+        font-size: 1.1rem;
+        color: #2C3E50;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    
+    .decathlon-detail-description p {
+        color: #555;
+        line-height: 1.6;
+    }
+    
+    .decathlon-promo-badge {
+        background: #E73C3E;
+        color: white;
+        padding: 3px 8px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        border-radius: 3px;
+        margin-left: 10px;
+    }
+    
+    .decathlon-cart-btn-lg {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    
+    .decathlon-delivery-info {
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+    
+    .decathlon-delivery-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        color: #555;
+    }
+    
+    .decathlon-feature-list {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .decathlon-feature-list li {
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .decathlon-color-options {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .decathlon-color-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        cursor: pointer;
+        padding: 0;
+    }
+    
+    .decathlon-color-btn:hover {
+        border-color: #0066CC;
+    }
+    
+    .decathlon-color-btn.active {
+        border-color: #0066CC;
+        box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.3);
+    }
+    
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+    
+    .breadcrumb-item a {
+        color: #0066CC;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}

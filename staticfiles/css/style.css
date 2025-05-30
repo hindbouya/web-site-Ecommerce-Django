@@ -1,0 +1,287 @@
+/* Fichier: static/css/decathlon-style.css */
+
+/* Variables de couleur Decathlon */
+:root {
+    --decathlon-blue: #0066cc;
+    --decathlon-light-blue: #e6f2ff;
+    --decathlon-red: #ff0000;
+    --decathlon-green: #00a651;
+    --decathlon-orange: #ff6b00;
+    --decathlon-gray: #f5f5f5;
+    --decathlon-dark-gray: #333333;
+}
+
+/* Style général */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.decathlon-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Navbar */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px 0;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.navbar .nav-link {
+    color: var(--decathlon-dark-gray) !important;
+    font-weight: 600;
+    margin: 0 10px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.navbar .nav-link:hover {
+    color: var(--decathlon-blue) !important;
+}
+
+.navbar .decathlon-search {
+    border: 2px solid var(--decathlon-blue);
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+/* Hero Section */
+.decathlon-hero {
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://via.placeholder.com/1920x500');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Boutons */
+.decathlon-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.decathlon-btn-primary {
+    background-color: var(--decathlon-blue);
+    color: white;
+}
+
+.decathlon-btn-primary:hover {
+    background-color: #0055aa;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.decathlon-btn-block {
+    display: block;
+    width: 100%;
+}
+
+/* Cartes produits */
+.decathlon-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s;
+    position: relative;
+    background: white;
+    margin-bottom: 20px;
+}
+
+.decathlon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.decathlon-card .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.decathlon-card .card-body {
+    padding: 15px;
+}
+
+.decathlon-brand {
+    color: var(--decathlon-blue);
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.decathlon-card .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--decathlon-dark-gray);
+}
+
+.decathlon-card .card-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.decathlon-price-container {
+    margin: 10px 0;
+}
+
+.decathlon-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--decathlon-blue);
+}
+
+.decathlon-old-price {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: #999;
+    margin-left: 8px;
+}
+
+.decathlon-rating {
+    color: var(--decathlon-orange);
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.decathlon-rating span {
+    color: #666;
+    margin-left: 5px;
+}
+
+.decathlon-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--decathlon-red);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 1;
+}
+
+/* Section sports */
+.decathlon-sports-section {
+    background-color: var(--decathlon-gray);
+    padding: 40px 0;
+    margin-top: 40px;
+}
+
+.decathlon-section-title {
+    text-align: center;
+    font-weight: 700;
+    color: var(--decathlon-dark-gray);
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.decathlon-section-title:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--decathlon-blue);
+}
+
+.decathlon-sport-card {
+    display: block;
+    text-align: center;
+    color: var(--decathlon-dark-gray);
+    text-decoration: none;
+    transition: all 0.3s;
+    padding: 20px 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.decathlon-sport-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: var(--decathlon-blue);
+}
+
+.sport-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: var(--decathlon-blue);
+}
+
+/* Footer */
+.decathlon-footer {
+    background-color: var(--decathlon-dark-gray);
+    color: white;
+    padding: 40px 0 20px;
+    margin-top: 50px;
+}
+
+.decathlon-footer h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.decathlon-footer a {
+    color: #ccc;
+    display: block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.decathlon-footer a:hover {
+    color: white;
+}
+
+.decathlon-footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    margin-top: 30px;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+}
+
+
+
+
+
+
+

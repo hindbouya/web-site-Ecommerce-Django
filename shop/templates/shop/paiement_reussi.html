@@ -1,0 +1,43 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<div class="payment-success">
+    <i class="fas fa-check-circle"></i>
+    <h1>Paiement réussi !</h1>
+    <p>Merci pour votre commande test.</p>
+    <a href="{% url 'home' %}" class="btn-home">Retour à l'accueil</a>
+</div>
+
+<style>
+    .payment-success {
+        text-align: center;
+        padding: 2rem;
+        max-width: 600px;
+        margin: 2rem auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .payment-success i {
+        color: #28a745;
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .payment-success h1 {
+        color: #2C3E50;
+        margin-bottom: 1rem;
+    }
+    
+    .btn-home {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        background: #0066CC;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}

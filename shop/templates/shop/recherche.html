@@ -1,0 +1,28 @@
+{% extends 'shop/base.html' %}
+{% load static %}  {# ← C’est cette ligne qu’il te manquait #}
+{% block title %}Résultats de recherche{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">Résultats pour : "{{ query }}"</h2>
+
+    {% if produits %}
+        <div class="row">
+            {% for produit in produits %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{% static produit.image %}" class="card-img-top" alt="{{ produit.nom }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ produit.nom }}</h5>
+                            <p class="card-text">{{ produit.description|truncatewords:20 }}</p>
+                            <p class="fw-bold">{{ produit.prix }} €</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Aucun produit trouvé.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,378 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}Panier - MonShop Sport{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <div class="cart-header">
+        <h1><i class="fas fa-shopping-cart"></i> Mon Panier</h1>
+        {% if produits %}
+        <div class="cart-summary">Total : <span>{{ total_panier }} €</span></div>
+        {% endif %}
+    </div>
+
+    {% if produits %}
+    <div class="cart-items">
+        {% for item in produits %}
+        <div class="cart-item">
+            <div class="item-image">
+                <img src="{% static item.produit.image %}" alt="{{ item.produit.nom }}">
+            </div>
+            
+            <div class="item-details">
+                <h3>{{ item.produit.nom }}</h3>
+                <div class="item-price">{{ item.produit.prix }} €</div>
+            </div>
+            
+            <div class="item-quantity">
+                <form method="post" action="{% url 'modifier_quantite' item.id %}">
+                    {% csrf_token %}
+                    <button type="button" class="quantity-btn minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
+                    <input type="number" name="quantite" value="{{ item.quantite }}" min="1">
+                    <button type="button" class="quantity-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
+                    <button type="submit" class="update-btn">Mettre à jour</button>
+                </form>
+            </div>
+            
+            <div class="item-total">{{ item.total }} €</div>
+            
+            <div class="item-actions">
+                <form method="post" action="{% url 'supprimer_du_panier' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="remove-btn"><i class="fas fa-trash-alt"></i></button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+     <div class="cart-footer">
+        <a href="{% url 'home' %}" class="continue-btn">
+            <i class="fas fa-arrow-left"></i> Continuer mes achats
+        </a>
+        <button id="checkout-btn" class="checkout-btn">
+            <i class="fas fa-credit-card"></i> Paiement Test
+        </button>
+    </div>
+    {% else %}
+    <div class="empty-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <p>Votre panier est vide</p>
+        <a href="{% url 'home' %}" class="shop-btn">Découvrir nos produits</a>
+    </div>
+    {% endif %}
+</div>
+
+
+<!-- Intégration Stripe pour les tests -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    // Clé publique test - à remplacer par votre clé test Stripe
+    const stripe = Stripe('pk_test_51RO7PuQT9Ik69PsUhtskTUhLuV8AsP7e4P4d5rLdfTvqXX9efg8H3hQEbLwuUQYSyXonFKzyE9W5XNRbOgjpF4cL00TJayWNBl'); 
+    
+    document.getElementById('checkout-btn').addEventListener('click', async () => {
+        try {
+            // Créer une session de checkout côté serveur
+            const response = await fetch('/create-checkout-session/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    items: [
+                        {% for item in produits %}
+                        {
+                            id: '{{ item.produit.id }}',
+                            name: '{{ item.produit.nom }}',
+                            price: {{ item.produit.prix }},
+                            quantity: {{ item.quantite }},
+                        },
+                        {% endfor %}
+                    ],
+                    total: {{ total_panier }}
+                })
+            });
+            
+            const session = await response.json();
+            
+            // Rediriger vers Stripe Checkout
+            const result = await stripe.redirectToCheckout({
+                sessionId: session.id
+            });
+            
+            if (result.error) {
+                alert(result.error.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Une erreur est survenue');
+        }
+    });
+</script>
+
+<style>
+    /* Ajoutez ce style pour le bouton de paiement */
+    #checkout-btn {
+        padding: 0.8rem 1.5rem;
+        background: #28a745; /* Vert pour le bouton de paiement */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    #checkout-btn:hover {
+        background: #218838;
+    }
+
+
+
+
+
+
+
+    /* Style général */
+    .cart-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* En-tête */
+    .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #0066CC;
+    }
+
+    .cart-header h1 {
+        color: #2C3E50;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .cart-summary {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .cart-summary span {
+        color: #E73C3E;
+        font-size: 1.4rem;
+    }
+
+    /* Articles du panier */
+    .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .cart-item {
+        display: grid;
+        grid-template-columns: 100px 2fr 1fr 1fr 50px;
+        gap: 1.5rem;
+        align-items: center;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
+    }
+
+    .cart-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .item-image img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        border-radius: 4px;
+        background: #F7F7F7;
+        padding: 5px;
+    }
+
+    .item-details h3 {
+        color: #2C3E50;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .item-price {
+        color: #E73C3E;
+        font-weight: 600;
+    }
+
+    /* Quantité */
+    .item-quantity form {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .quantity-btn {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #DDD;
+        background: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .quantity-btn:hover {
+        background: #F7F7F7;
+    }
+
+    .item-quantity input {
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        border: 1px solid #DDD;
+        border-radius: 4px;
+    }
+
+    .update-btn {
+        padding: 0.3rem 0.8rem;
+        background: #0066CC;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+
+    .update-btn:hover {
+        background: #0052A3;
+    }
+
+    /* Total */
+    .item-total {
+        font-weight: 600;
+        color: #2C3E50;
+    }
+
+    /* Actions */
+    .remove-btn {
+        background: none;
+        border: none;
+        color: #E73C3E;
+        font-size: 1.1rem;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    /* Pied de page */
+    .cart-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid #0066CC;
+    }
+
+    .continue-btn, .checkout-btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .continue-btn {
+        background: white;
+        color: #0066CC;
+        border: 1px solid #0066CC;
+    }
+
+    .continue-btn:hover {
+        background: #F0F7FF;
+    }
+
+    .checkout-btn {
+        background: #0066CC;
+        color: white;
+    }
+
+    .checkout-btn:hover {
+        background: #0052A3;
+    }
+
+    /* Panier vide */
+    .empty-cart {
+        text-align: center;
+        padding: 3rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .empty-cart i {
+        font-size: 3rem;
+        color: #7F8C8D;
+        margin-bottom: 1rem;
+    }
+
+    .empty-cart p {
+        color: #2C3E50;
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .shop-btn {
+        padding: 0.8rem 1.5rem;
+        background: #0066CC;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .shop-btn:hover {
+        background: #0052A3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .cart-item {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            position: relative;
+            padding-bottom: 3rem;
+        }
+
+        .item-actions {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+        .cart-footer {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .continue-btn, .checkout-btn {
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}

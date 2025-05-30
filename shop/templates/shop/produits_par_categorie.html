@@ -1,0 +1,21 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}{{ categorie|title }} - {{ genre|title }}{% endblock %}
+<h2>Produits : {{ categorie|title }}</h2>
+{% block content %}
+<div class="row">
+    {% for produit in produits %}
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <img src="{% static produit.image %}" class="card-img-top" alt="{{ produit.nom }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ produit.nom }}</h5>
+                <p class="card-text">{{ produit.prix }} €</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Aucun produit dans cette catégorie.</p>
+    {% endfor %}
+</div>
+{% endblock %}
